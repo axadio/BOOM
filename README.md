@@ -1,0 +1,2 @@
+# BOOM
+programming paradigma
