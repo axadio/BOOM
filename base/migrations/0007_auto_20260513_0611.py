@@ -7,10 +7,14 @@ def create_topics(apps, schema_editor):
 
     topics = [
         'Python',
-        'Django',
-        'AI',
+        'Cpp',
+        'JavaScript',
         'Cyber Security',
-        'Machine Learning'
+        'Machine Learning',
+        'AI',
+        'Java',
+        'Dart',
+        'Flutter',
     ]
 
     for topic in topics:
