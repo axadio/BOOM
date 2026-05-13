@@ -1,0 +1,61 @@
+{% load time_filters %}
+<div class="activities">
+      <div class="activities__header">
+        <h2>Your Room Messages</h2>
+      </div>
+      {% for recent_message in recent_messages %}
+      <div class="activities__box">
+        <div class="activities__boxHeader roomListRoom__header">
+          <a href="{% url 'user-profile' recent_message.user.id %}" class="roomListRoom__author">
+            <div class="avatar avatar--small">
+              <img src="{{recent_message.user.avatar.url}}" />
+            </div>
+            <p>
+              @{{recent_message.user}}
+              <span>{{recent_message.created|smart_timesince}} ago</span>
+            </p>
+          </a>
+          <div class="roomListRoom__actions">
+            {% if request.user == recent_message.user %}
+            <a href="{% url 'delete-message' recent_message.id %}">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>remove</title>
+                <path
+                  d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z">
+                </path>
+              </svg>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="activities__boxContent">
+          <p>replied to post <br>“<a href="{% url 'room' recent_message.room.id %}">{{recent_message.room.name}}</a>”</p>
+          <div class="activities__boxRoomContent">
+            {% if recent_message.body|length > 50 %}
+            {{ recent_message.body|slice:"0:50" }}...
+            {% else %}
+            {{recent_message.body}} 
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+
+<!-- <div class="recent__activities">
+    <h3>Recent Activities</h3>
+    <hr>
+    {% for recent_message in recent_messages %}
+    <div>
+        <small><a href="{% url 'user-profile' recent_message.user.id %}">@{{recent_message.user}}</a> {{recent_message.created|smart_timesince}} ago</small>
+        <p>replied to post " <a href="{% url 'room' recent_message.room.id %}">{{recent_message.room.name}}</a> "</p>
+        {% if recent_message.body|length > 50 %}
+        <p>{{ recent_message.body|slice:"0:50" }}...</p>
+        {% else %}
+        <p>{{recent_message.body}} </p>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+</div> -->
